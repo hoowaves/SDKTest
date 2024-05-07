@@ -12,7 +12,6 @@ object WebOSManager {
     private var webOSTVService: WebOSTVService? = null
     private var keyControl: KeyControl? = null
     private var mouseControl: MouseControl? = null
-    private var mouseConnect: MouseConnect? = null
 
     fun initialize(device: ConnectableDevice?) {
         mDevice = device
