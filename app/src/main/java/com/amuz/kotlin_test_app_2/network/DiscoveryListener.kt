@@ -26,15 +26,29 @@ object DiscoveryListener : DiscoveryManagerListener {
         mDiscoveryManager?.start()
         mDiscoveryManager?.stop()
     }
+    fun stopScan() {
+        DiscoveryManager.getInstance().removeListener(this)
+    }
 
     override fun onDeviceAdded(manager: DiscoveryManager?, device: ConnectableDevice?) {
         Log.d("onDeviceAdded", device.toString())
+        device?.let {
+            val serviceNames = device.services.map { it.serviceName }
+            Log.d("onDeviceAdded serviceNames",serviceNames.toString())
+            if ("webOS TV" in serviceNames) {
+                val currentList = _mDeviceList.value ?: emptyList()
+                if (currentList.none { it.id == device.id }) {
+                    _mDeviceList.postValue(currentList + device)
+                }
+            }
+        }
     }
 
     override fun onDeviceUpdated(manager: DiscoveryManager?, device: ConnectableDevice?) {
-        Log.d("onDeviceUpdated", device.toString())
+        Log.d("onDeviceUpdated serviceNames", device.toString())
         device?.let {
             val serviceNames = device.services.map { it.serviceName }
+            Log.d("serviceNames",serviceNames.toString())
             if ("webOS TV" in serviceNames) {
                 val currentList = _mDeviceList.value ?: emptyList()
                 if (currentList.none { it.id == device.id }) {

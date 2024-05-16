@@ -6,7 +6,6 @@ plugins {
 android {
     namespace = "com.amuz.kotlin_test_app_2"
     compileSdk = 34
-
     defaultConfig {
         applicationId = "com.amuz.kotlin_test_app_2"
         minSdk = 24
@@ -47,6 +46,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    useLibrary("org.apache.http.legacy")
 }
 
 dependencies {
@@ -67,6 +67,27 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation("com.connectsdk:connect-sdk-android:1.6.0")
+    //implementation("com.connectsdk:connect-sdk-android:1.6.0")
+//    implementation(":Connect-SDK-Android")
     implementation("androidx.compose.runtime:runtime-livedata:1.0.0")
+
+    implementation("org.java-websocket:Java-WebSocket:1.5.0")
+    implementation("javax.jmdns:jmdns:3.4.1")
+    implementation(fileTree(mapOf("dir" to "modules/firetv/libs", "include" to "*.jar")))
+    implementation("androidx.mediarouter:mediarouter:1.2.0")
+    implementation("androidx.annotation:annotation:1.0.0")
+    implementation("androidx.preference:preference:1.1.1")
+    implementation("androidx.appcompat:appcompat:1.3.1")  // 1.4.1 version doesn't support compile sdk 30
+    implementation("com.googlecode.plist:dd-plist:1.23")
+    implementation("com.nimbusds:srp6a:2.1.0")
+    implementation("net.i2p.crypto:eddsa:0.3.0")
+    implementation("com.google.android.gms:play-services-cast-framework:9.4.0")
+    implementation(files("libs/lgcast-android-lib.jar"))
+    testImplementation("org.apache.maven:maven-ant-tasks:2.1.3")
+    testImplementation("junit:junit:4.12")
+    testImplementation("org.robolectric:robolectric:2.4")
+    testImplementation("org.mockito:mockito-all:1.10.19")
+    testImplementation("org.powermock:powermock-api-mockito:1.6.2")
+    testImplementation("xmlunit:xmlunit:1.4")
+
 }

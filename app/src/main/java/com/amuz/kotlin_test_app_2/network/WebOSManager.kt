@@ -5,6 +5,7 @@ import com.connectsdk.device.ConnectableDevice
 import com.connectsdk.service.DeviceService.PairingType
 import com.connectsdk.service.WebOSTVService
 import com.connectsdk.service.capability.KeyControl
+import com.connectsdk.service.capability.Launcher
 import com.connectsdk.service.capability.MouseControl
 
 object WebOSManager {
@@ -16,10 +17,11 @@ object WebOSManager {
     fun initialize(device: ConnectableDevice?) {
         mDevice = device
         webOSTVService = device!!.getServiceByName("webOS TV") as WebOSTVService
-        Log.d("permissions", webOSTVService!!.permissions.toString())
+//        Log.d("permissions", webOSTVService!!.permissions.toString())
 //        webOSTVService = device!!.getServiceByName("webOS") as WebOSTVService
         device.setPairingType(PairingType.PIN_CODE)
         device.connect()
+        DiscoveryListener.stopScan()
     }
 
     fun sendPairingKey(pinCode: String) {
@@ -34,18 +36,38 @@ object WebOSManager {
         webOSTVService!!.volumeControl.volumeDown(null)
     }
 
-    fun testSend() {
+    fun connectMouse() {
         webOSTVService!!.connectMouse()
-//        webOSTVService!!.click()
+        webOSTVService!!.click()
 //        mouseControl = mDevice?.getCapability(MouseControl::class.java)
-        mouseControl = webOSTVService!!.mouseControl;
+//        mouseControl = webOSTVService!!.mouseControl;
 //        keyControl = mDevice?.getCapability(KeyControl::class.java)
-        mouseControl!!.click();
+//        mouseControl!!.click();
 
         //mDevice?.keyControl?.sendKeyCode(KeyControl.KeyCode.NUM_0, null)
         //keyControl?.sendKeyCode(KeyControl.KeyCode.NUM_0, null)
         //mDevice?.getCapability(KeyControl::class.java)?.sendKeyCode(KeyControl.KeyCode.NUM_0, null)
         //mDevice?.keyControl?.sendKeyCode(KeyControl.KeyCode.NUM_0, null)
+    }
+
+    fun showToast() {
+        webOSTVService?.showToast("Test~~", null)
+    }
+
+    fun launchYoutube() {
+        webOSTVService?.launchApp(Launcher.YouTube, null)
+    }
+
+    fun sendText() {
+        webOSTVService?.sendText("Test~~")
+    }
+
+    fun sendEnter() {
+        webOSTVService?.sendEnter()
+    }
+
+    fun sendDown(){
+        webOSTVService?.down(null)
     }
 
 }

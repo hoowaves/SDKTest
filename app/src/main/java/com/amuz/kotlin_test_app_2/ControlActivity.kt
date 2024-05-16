@@ -5,8 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 
 class ControlActivity : ComponentActivity() {
+    val testButton = TestButton()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -18,10 +21,14 @@ class ControlActivity : ComponentActivity() {
                     volumeDownButton.Render()
                 }
                 Row {
-                    val mouseButton = MouseButton()
-                    mouseButton.Render()
+                    testButton.Render()
                 }
             }
         }
+    }
+    @Preview
+    @Composable
+    fun Preview() {
+        testButton.Render()
     }
 }
